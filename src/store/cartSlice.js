@@ -1,6 +1,14 @@
+import { createSlice } from '@reduxjs/toolkit';
+
+
 const cartSlice = createSlice({
     name: 'cart',
-    initialState: getSavedCart(),
+    initialState: {
+        items: [],
+        totalQuantity: 0,
+        totalPrice: 0,
+        isModalOpen:false
+    },
     reducers: {
         addItemToCart(state, action) {
             const newItem = action.payload;
@@ -45,6 +53,11 @@ const cartSlice = createSlice({
             
             // Save to localStorage
             localStorage.setItem('cart', JSON.stringify(state));
+        },
+        clickingModal(state,action){
+            state.isModalOpen=!state.isModalOpen
         }
     }
 });
+export const cartActions = cartSlice.actions;
+export default cartSlice.reducer; 
